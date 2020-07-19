@@ -48,7 +48,7 @@ namespace MVC_EF_Start.Controllers
             MyStudent1.Name = "John Snow";
 
             Student MyStudent3 = new Student();
-            MyStudent1.Id = 2;
+            MyStudent1.Id = 3;
             MyStudent1.Name = "Frank Sinatra";
 
             Enrolment MyEnrolment1 = new Enrolment();
@@ -123,25 +123,42 @@ namespace MVC_EF_Start.Controllers
             //  //await dbContext.SaveChangesAsync();
 
             //  return View();
-            //}
+            //
+        }
 
-            //public ViewResult LINQOperations()
-            //{
-            //  Company CompanyRead1 = dbContext.Companies
-            //                                  .Where(c => c.symbol == "MCOB")
-            //                                  .First();
+            public ViewResult LINQOperations()
+            {
+                Course CourseRead1 = dbContext.Courses
+                                                .Where(c => c.Id == 6225)
+                                                .First();
 
-            //  Company CompanyRead2 = dbContext.Companies
-            //                                  .Include(c => c.Quotes)
-            //                                  .Where(c => c.symbol == "MCOB")
-            //                                  .First();
+                Course CourseRead2 = dbContext.Courses
+                                                .Include(c => c.enrolments)
+                                                .Where(c => c.Id == 6225)
+                                                .First();
 
-            //  Quote Quote1 = dbContext.Companies
-            //                          .Include(c => c.Quotes)
-            //                          .Where(c => c.symbol == "MCOB")
-            //                          .FirstOrDefault()
-            //                          .Quotes
-            //                          .FirstOrDefault();
+                Enrolment Enrolment1 = dbContext.Enrolments
+                                .Include(c => c.course)
+                                .Include(c => c.student)
+                                .Include(c => c.grade)
+                                .Where(c => c.Id == 102)
+                                .FirstOrDefault();
+
+            Enrolment Enrolment2 = dbContext.Enrolments
+                            .Include(c => c.course)
+                            .Include(c => c.student)
+                            .Include(c => c.grade)
+                            .Where(c => c.Id == 101)
+                            .FirstOrDefault();
+
+            Enrolment Enrolment3 = dbContext.Enrolments
+                                .Include(c => c.course)
+                                .Include(c => c.student)
+                                .Include(c => c.grade)
+                                .Where(c => c.Id == 103)
+                                .FirstOrDefault();
+
+
 
             return View();
         }
